@@ -67,6 +67,7 @@ void   MX_RTC_Init(void);
 void   MX_USART2_UART_Init(void);
 /* USER CODE BEGIN Private defines */
 
+
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
