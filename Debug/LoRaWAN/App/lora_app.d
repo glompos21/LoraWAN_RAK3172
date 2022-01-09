@@ -70,8 +70,7 @@ LoRaWAN/App/lora_app.o: ../LoRaWAN/App/lora_app.c ../Core/Inc/platform.h \
  ../Middlewares/Third_Party/LoRaWAN/LmHandler/LmHandler.h \
  ../Middlewares/Third_Party/LoRaWAN/LmHandler/LmHandlerTypes.h \
  ../Middlewares/Third_Party/LoRaWAN/Mac/LoRaMacClassB.h \
- ../Utilities/lpm/tiny_lpm/stm32_lpm.h ../Core/Inc/adc_if.h \
- ../Core/Inc/platform.h ../Core/Inc/sys_conf.h \
+ ../Utilities/lpm/tiny_lpm/stm32_lpm.h ../Core/Inc/sys_conf.h \
  ../LoRaWAN/App/CayenneLpp.h ../Core/Inc/sys_sensors.h
 
 ../Core/Inc/platform.h:
@@ -233,10 +232,6 @@ LoRaWAN/App/lora_app.o: ../LoRaWAN/App/lora_app.c ../Core/Inc/platform.h \
 ../Middlewares/Third_Party/LoRaWAN/Mac/LoRaMacClassB.h:
 
 ../Utilities/lpm/tiny_lpm/stm32_lpm.h:
-
-../Core/Inc/adc_if.h:
-
-../Core/Inc/platform.h:
 
 ../Core/Inc/sys_conf.h:
 

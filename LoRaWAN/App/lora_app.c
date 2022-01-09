@@ -33,7 +33,7 @@
 #include "lora_info.h"
 #include "LmHandler.h"
 #include "stm32_lpm.h"
-#include "adc_if.h"
+//#include "adc_if.h"
 #include "sys_conf.h"
 #include "CayenneLpp.h"
 #include "sys_sensors.h"

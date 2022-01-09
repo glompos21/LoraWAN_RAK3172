@@ -1242,7 +1242,7 @@ static void RadioSend( uint8_t *buffer, uint8_t size )
 
     /* ST_WORKAROUND_BEGIN : Set the debug pin and update the radio switch */
     /* Set DBG pin */
-    DBG_GPIO_RADIO_TX(SET);
+    //    DBG_GPIO_RADIO_TX(SET);
 
     /* Set RF switch */
     SUBGRF_SetSwitch(SubgRf.AntSwitchPaSelect, RFSWITCH_TX);
@@ -1374,7 +1374,7 @@ static void RadioRx( uint32_t timeout )
 
     /* ST_WORKAROUND_BEGIN : Set the debug pin and update the radio switch */
     /* Set DBG pin */
-    DBG_GPIO_RADIO_RX(SET);
+    //    DBG_GPIO_RADIO_RX(SET);
 
     /* RF switch configuration */
     SUBGRF_SetSwitch(SubgRf.AntSwitchPaSelect, RFSWITCH_RX);
@@ -1539,7 +1539,7 @@ static void RadioOnRxTimeoutIrq( void* context )
 static void RadioOnTxTimeoutProcess( void )
 {
     /* ST_WORKAROUND_BEGIN: Reset DBG pin */
-    DBG_GPIO_RADIO_TX(RST);
+//    DBG_GPIO_RADIO_TX(RST);
     /* ST_WORKAROUND_END */
 
     if( ( RadioEvents != NULL ) && ( RadioEvents->TxTimeout != NULL ) )
@@ -1551,7 +1551,7 @@ static void RadioOnTxTimeoutProcess( void )
 static void RadioOnRxTimeoutProcess( void )
 {
     /* ST_WORKAROUND_BEGIN: Reset DBG pin */
-    DBG_GPIO_RADIO_RX(RST);
+//    DBG_GPIO_RADIO_RX(RST);
     /* ST_WORKAROUND_END */
 
     if( ( RadioEvents != NULL ) && ( RadioEvents->RxTimeout != NULL ) )
@@ -1576,7 +1576,7 @@ static void RadioIrqProcess( void )
     {
     case IRQ_TX_DONE:
         /* ST_WORKAROUND_BEGIN: Reset DBG pin */
-        DBG_GPIO_RADIO_TX(RST);
+        //    DBG_GPIO_RADIO_TX(RST);
         /* ST_WORKAROUND_END */
 
         TimerStop( &TxTimeoutTimer );
@@ -1596,7 +1596,7 @@ static void RadioIrqProcess( void )
 
     case IRQ_RX_DONE:
         /* ST_WORKAROUND_BEGIN: Reset DBG pin */
-        DBG_GPIO_RADIO_RX(RST);
+        //    DBG_GPIO_RADIO_RX(RST);
         /* ST_WORKAROUND_END */
 
         TimerStop( &RxTimeoutTimer );
@@ -1652,7 +1652,7 @@ static void RadioIrqProcess( void )
         if( SUBGRF_GetOperatingMode( ) == MODE_TX )
         {
             /* ST_WORKAROUND_BEGIN: Reset DBG pin */
-            DBG_GPIO_RADIO_TX(RST);
+            //    DBG_GPIO_RADIO_TX(RST);
             /* ST_WORKAROUND_END */
 
             TimerStop( &TxTimeoutTimer );
@@ -1666,7 +1666,7 @@ static void RadioIrqProcess( void )
         else if( SUBGRF_GetOperatingMode( ) == MODE_RX )
         {
             /* ST_WORKAROUND_BEGIN: Reset DBG pin */
-            DBG_GPIO_RADIO_RX(RST);
+            //    DBG_GPIO_RADIO_RX(RST);
             /* ST_WORKAROUND_END */
 
             TimerStop( &RxTimeoutTimer );

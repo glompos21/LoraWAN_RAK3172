@@ -30,7 +30,10 @@ extern "C" {
 /* Exported constants --------------------------------------------------------*/
 
 /* USER CODE BEGIN EC */
-
+//#define USE_BSP_DRIVER
+/* USER CODE BEGIN EC */
+#define MX_BOARD_PSEUDODRIVER
+/* USER CODE END EC */
 /* USER CODE END EC */
 
 /* Includes ------------------------------------------------------------------*/
