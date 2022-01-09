@@ -34,7 +34,6 @@ extern "C" {
 /* USER CODE BEGIN EC */
 #define MX_BOARD_PSEUDODRIVER
 /* USER CODE END EC */
-/* USER CODE END EC */
 
 /* Includes ------------------------------------------------------------------*/
 #include <stdbool.h>
