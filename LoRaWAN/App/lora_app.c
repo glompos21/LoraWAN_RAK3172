@@ -260,12 +260,12 @@ void LoRaWAN_Init(void)
           (uint8_t)(__SUBGHZ_PHY_VERSION >> __APP_VERSION_SUB2_SHIFT));
 
 
-  UTIL_TIMER_Create(&TxLedTimer, 0xFFFFFFFFU, UTIL_TIMER_ONESHOT, OnTxTimerLedEvent, NULL);
-  UTIL_TIMER_Create(&RxLedTimer, 0xFFFFFFFFU, UTIL_TIMER_ONESHOT, OnRxTimerLedEvent, NULL);
-  UTIL_TIMER_Create(&JoinLedTimer, 0xFFFFFFFFU, UTIL_TIMER_PERIODIC, OnJoinTimerLedEvent, NULL);
-  UTIL_TIMER_SetPeriod(&TxLedTimer, 500);
-  UTIL_TIMER_SetPeriod(&RxLedTimer, 500);
-  UTIL_TIMER_SetPeriod(&JoinLedTimer, 500);
+//  UTIL_TIMER_Create(&TxLedTimer, 0xFFFFFFFFU, UTIL_TIMER_ONESHOT, OnTxTimerLedEvent, NULL);
+//  UTIL_TIMER_Create(&RxLedTimer, 0xFFFFFFFFU, UTIL_TIMER_ONESHOT, OnRxTimerLedEvent, NULL);
+//  UTIL_TIMER_Create(&JoinLedTimer, 0xFFFFFFFFU, UTIL_TIMER_PERIODIC, OnJoinTimerLedEvent, NULL);
+//  UTIL_TIMER_SetPeriod(&TxLedTimer, 500);
+//  UTIL_TIMER_SetPeriod(&RxLedTimer, 500);
+//  UTIL_TIMER_SetPeriod(&JoinLedTimer, 500);
 
   UTIL_SEQ_RegTask((1 << CFG_SEQ_Task_LmHandlerProcess), UTIL_SEQ_RFU, LmHandlerProcess);
   UTIL_SEQ_RegTask((1 << CFG_SEQ_Task_LoRaSendOnTxTimerOrButtonEvent), UTIL_SEQ_RFU, SendTxData);
@@ -278,7 +278,7 @@ void LoRaWAN_Init(void)
   LmHandlerConfigure(&LmHandlerParams);
 
   /* USER CODE BEGIN LoRaWAN_Init_2 */
-  UTIL_TIMER_Start(&JoinLedTimer);
+//  UTIL_TIMER_Start(&JoinLedTimer);
   /* USER CODE END LoRaWAN_Init_2 */
 
   LmHandlerJoin(ActivationType);
@@ -395,7 +395,7 @@ static void OnRxData(LmHandlerAppData_t *appData, LmHandlerRxParams_t *params)
 //#elif defined(MX_BOARD_PSEUDODRIVER)
 //    SYS_LED_On(SYS_LED_BLUE) ;
 //#endif /* USE_BSP_DRIVER || MX_BOARD_PSEUDODRIVER */
-    UTIL_TIMER_Start(&RxLedTimer);
+//    UTIL_TIMER_Start(&RxLedTimer);
 
     static const char *slotStrings[] = { "1", "2", "C", "C Multicast", "B Ping-Slot", "B Multicast Ping-Slot" };
 
@@ -495,7 +495,7 @@ static void SendTxData(void)
 //  sprintf((char*)buf, "%u %u \r\n",((uint32_t)tempC),((uint32_t)humidity));
 //  HAL_UART_Transmit(&huart2, buf, strlen((char*)buf), HAL_MAX_DELAY);
   // Wait
-    HAL_Delay(500);
+//    HAL_Delay(500);
 
 
 
@@ -655,7 +655,7 @@ static void OnTxData(LmHandlerTxParams_t *params)
 //#elif defined(MX_BOARD_PSEUDODRIVER)
 //    SYS_LED_On(SYS_LED_GREEN) ;
 //#endif /* USE_BSP_DRIVER || MX_BOARD_PSEUDODRIVER */
-    UTIL_TIMER_Start(&TxLedTimer);
+//    UTIL_TIMER_Start(&TxLedTimer);
 
     APP_LOG(TS_OFF, VLEVEL_M, "\r\n###### ========== MCPS-Confirm =============\r\n");
     APP_LOG(TS_OFF, VLEVEL_H, "###### U/L FRAME:%04d | PORT:%d | DR:%d | PWR:%d", params->UplinkCounter,
@@ -685,7 +685,7 @@ static void OnJoinRequest(LmHandlerJoinParams_t *joinParams)
   {
     if (joinParams->Status == LORAMAC_HANDLER_SUCCESS)
     {
-      UTIL_TIMER_Stop(&JoinLedTimer);
+//      UTIL_TIMER_Stop(&JoinLedTimer);
 
 //#if defined(USE_BSP_DRIVER)
 //      BSP_LED_Off(LED_RED) ;
