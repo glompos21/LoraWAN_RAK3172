@@ -62,6 +62,10 @@ void Error_Handler(void);
 #define RTC_PREDIV_S ((1<<RTC_N_PREDIV_S)-1)
 #define RTC_PREDIV_A ((1<<(15-RTC_N_PREDIV_S))-1)
 #define USART_BAUDRATE 115200
+#define USARTx_TX_Pin GPIO_PIN_2
+#define USARTx_TX_GPIO_Port GPIOA
+#define USARTx_RX_Pin GPIO_PIN_3
+#define USARTx_RX_GPIO_Port GPIOA
 void   MX_ADC_Init(void);
 void   MX_RTC_Init(void);
 void   MX_USART2_UART_Init(void);
