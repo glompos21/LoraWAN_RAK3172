@@ -1,0 +1,4 @@
+stm32wlxx_ll_bus.h:449:22:LL_AHB2_GRP1_EnableClock	24	static
+sys_debug.c:65:6:DBG_Disable	32	static
+sys_debug.c:97:6:DBG_ConfigForLpm	24	static
+sys_debug.c:133:6:DBG_ProbesInit	4	static
