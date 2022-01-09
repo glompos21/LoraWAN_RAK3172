@@ -66,7 +66,10 @@ void   MX_ADC_Init(void);
 void   MX_RTC_Init(void);
 void   MX_USART2_UART_Init(void);
 /* USER CODE BEGIN Private defines */
-
+#define USARTx_RX_Pin GPIO_PIN_3
+#define USARTx_RX_GPIO_Port GPIOA
+#define USARTx_TX_Pin GPIO_PIN_2
+#define USARTx_TX_GPIO_Port GPIOA
 
 /* USER CODE END Private defines */
 
