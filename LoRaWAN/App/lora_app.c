@@ -477,20 +477,20 @@ static void SendTxData(void)
   sensor_t sensor_data;
   UTIL_TIMER_Time_t nextTxIn = 0;
 
-  // Start humidity measurement
-  uint32_t humidity1 = si7021_measure_humidity(&hi2c2);
-  if (humidity1 == SI7021_MEASURE_FAILED) {
-    // Error happened :(
-  }
-
-  // As a side effect si7021 measures temperate together with humidity
-  // so you can just read it without additional measurement
-  int32_t tempC = si7021_read_previous_temperature(&hi2c2);
-  if (humidity1 == SI7021_MEASURE_FAILED) {
-    // Error happened :(
-  }
-  uint32_t test=1233;
-  APP_LOG(TS_ON, VLEVEL_L, "Temp: %u RH: %u %u \r\n",((uint32_t)tempC),((uint32_t)humidity1),((uint32_t)test));
+//  // Start humidity measurement
+//  uint32_t humidity1 = si7021_measure_humidity(&hi2c2);
+//  if (humidity1 == SI7021_MEASURE_FAILED) {
+//    // Error happened :(
+//  }
+//
+//  // As a side effect si7021 measures temperate together with humidity
+//  // so you can just read it without additional measurement
+//  int32_t tempC = si7021_read_previous_temperature(&hi2c2);
+//  if (humidity1 == SI7021_MEASURE_FAILED) {
+//    // Error happened :(
+//  }
+//  uint32_t test=1233;
+//  APP_LOG(TS_ON, VLEVEL_L, "Temp: %u RH: %u %u \r\n",((uint32_t)tempC),((uint32_t)humidity1),((uint32_t)test));
 //  sprintf((char*)buf, "%u %u \r\n",((uint32_t)tempC),((uint32_t)humidity));
 //  HAL_UART_Transmit(&huart2, buf, strlen((char*)buf), HAL_MAX_DELAY);
   // Wait

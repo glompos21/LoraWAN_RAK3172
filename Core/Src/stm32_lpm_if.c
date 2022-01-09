@@ -20,7 +20,6 @@
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
-#include <usart_if.h.old>
 #include "platform.h"
 #include "stm32_lpm.h"
 #include "stm32_lpm_if.h"
