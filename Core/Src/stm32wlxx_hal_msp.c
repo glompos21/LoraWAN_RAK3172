@@ -240,6 +240,11 @@ void HAL_RTC_MspInit(RTC_HandleTypeDef* hrtc)
     /* Peripheral clock enable */
     __HAL_RCC_RTC_ENABLE();
     __HAL_RCC_RTCAPB_CLK_ENABLE();
+    /* RTC interrupt Init */
+    HAL_NVIC_SetPriority(TAMP_STAMP_LSECSS_SSRU_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(TAMP_STAMP_LSECSS_SSRU_IRQn);
+    HAL_NVIC_SetPriority(RTC_Alarm_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(RTC_Alarm_IRQn);
   /* USER CODE BEGIN RTC_MspInit 1 */
 
   /* USER CODE END RTC_MspInit 1 */
@@ -263,6 +268,10 @@ void HAL_RTC_MspDeInit(RTC_HandleTypeDef* hrtc)
     /* Peripheral clock disable */
     __HAL_RCC_RTC_DISABLE();
     __HAL_RCC_RTCAPB_CLK_DISABLE();
+
+    /* RTC interrupt DeInit */
+    HAL_NVIC_DisableIRQ(TAMP_STAMP_LSECSS_SSRU_IRQn);
+    HAL_NVIC_DisableIRQ(RTC_Alarm_IRQn);
   /* USER CODE BEGIN RTC_MspDeInit 1 */
 
   /* USER CODE END RTC_MspDeInit 1 */
@@ -283,6 +292,9 @@ void HAL_SUBGHZ_MspInit(SUBGHZ_HandleTypeDef* hsubghz)
   /* USER CODE END SUBGHZ_MspInit 0 */
     /* Peripheral clock enable */
     __HAL_RCC_SUBGHZSPI_CLK_ENABLE();
+    /* SUBGHZ interrupt Init */
+    HAL_NVIC_SetPriority(SUBGHZ_Radio_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(SUBGHZ_Radio_IRQn);
   /* USER CODE BEGIN SUBGHZ_MspInit 1 */
 
   /* USER CODE END SUBGHZ_MspInit 1 */
@@ -302,6 +314,9 @@ void HAL_SUBGHZ_MspDeInit(SUBGHZ_HandleTypeDef* hsubghz)
   /* USER CODE END SUBGHZ_MspDeInit 0 */
     /* Peripheral clock disable */
     __HAL_RCC_SUBGHZSPI_CLK_DISABLE();
+
+    /* SUBGHZ interrupt DeInit */
+    HAL_NVIC_DisableIRQ(SUBGHZ_Radio_IRQn);
   /* USER CODE BEGIN SUBGHZ_MspDeInit 1 */
 
   /* USER CODE END SUBGHZ_MspDeInit 1 */

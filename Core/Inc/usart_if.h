@@ -20,8 +20,7 @@
 /* USER CODE END Header */
 
 #include "stm32_adv_trace.h"
-//#include "usart.h"
-//#include "dma.h"
+#include "main.h"
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __USART_IF_H__
