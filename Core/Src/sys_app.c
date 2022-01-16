@@ -156,9 +156,9 @@ uint8_t GetBatteryLevel(void)
 
   /* USER CODE END GetBatteryLevel_0 */
 
-//  batteryLevelmV = (uint16_t) SYS_GetBatteryLevel();
-//
-//  /* Convert battery level from mV to linear scale: 1 (very low) to 254 (fully charged) */
+  batteryLevelmV = (uint16_t) SYS_GetBatteryLevel();
+
+  /* Convert battery level from mV to linear scale: 1 (very low) to 254 (fully charged) */
 //  if (batteryLevelmV > VDD_BAT)
 //  {
 //    batteryLevel = LORAWAN_MAX_BAT;
@@ -185,7 +185,7 @@ uint16_t GetTemperatureLevel(void)
 {
   uint16_t temperatureLevel = 0;
 
-//  temperatureLevel = (uint16_t)(SYS_GetTemperatureLevel() / 256);
+  temperatureLevel = (uint16_t)(SYS_GetTemperatureLevel() / 256);
   /* USER CODE BEGIN GetTemperatureLevel */
 
   /* USER CODE END GetTemperatureLevel */
