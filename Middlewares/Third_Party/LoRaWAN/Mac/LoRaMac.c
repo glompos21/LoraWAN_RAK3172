@@ -2873,7 +2873,7 @@ static LoRaMacStatus_t SendFrameOnChannel( uint8_t channel )
     txConfig.PktLen = MacCtx.PktBufferLen;
 
     RegionTxConfig( Nvm.MacGroup2.Region, &txConfig, &txPower, &MacCtx.TxTimeOnAir );
-//    MW_LOG(TS_ON, VLEVEL_M,  "finish RegionTxConfig \r\n" );
+
     MacCtx.McpsConfirm.Status = LORAMAC_EVENT_INFO_STATUS_ERROR;
     MacCtx.McpsConfirm.Datarate = Nvm.MacGroup1.ChannelsDatarate;
     MacCtx.McpsConfirm.TxPower = txPower;
@@ -2894,17 +2894,15 @@ static LoRaMacStatus_t SendFrameOnChannel( uint8_t channel )
             return LORAMAC_STATUS_BUSY_UPLINK_COLLISION;
         }
     }
-//    MW_LOG(TS_ON, VLEVEL_M,  "finish LoRaMacClassBIsBeaconModeActive \r\n" );
-//    MW_LOG(TS_ON, VLEVEL_M,  "finish LoRaMacClassBIsBeaconModeActive2 \r\n" );
+
     if( Nvm.MacGroup2.DeviceClass == CLASS_B )
     {
-//    	MW_LOG(TS_ON, VLEVEL_M,  "inside if( Nvm.MacGroup2.DeviceClass \r\n" );
         // Stop slots for class b
         LoRaMacClassBStopRxSlots( );
     }
-//    MW_LOG(TS_ON, VLEVEL_M,  "Start LoRaMacClassBHaltBeaconing \r\n" );
+
     LoRaMacClassBHaltBeaconing( );
-//    MW_LOG(TS_ON, VLEVEL_M,  "finish LoRaMacClassBHaltBeaconing \r\n" );
+
     // Secure frame
     status = SecureFrame( Nvm.MacGroup1.ChannelsDatarate, MacCtx.Channel );
     if( status != LORAMAC_STATUS_OK )
@@ -2920,7 +2918,7 @@ static LoRaMacStatus_t SendFrameOnChannel( uint8_t channel )
 
     // Send now
     Radio.Send( MacCtx.PktBuffer, MacCtx.PktBufferLen );
-//    MW_LOG(TS_ON, VLEVEL_M,  "finish Radio.Send \r\n" );
+
     return LORAMAC_STATUS_OK;
 }
 

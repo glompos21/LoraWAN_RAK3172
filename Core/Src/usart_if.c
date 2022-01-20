@@ -21,7 +21,6 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "usart_if.h"
-#include "main.h"
 
 /* USER CODE BEGIN Includes */
 
