@@ -1,9 +1,9 @@
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
-  * @file    sys_conf.h
+  * @file    adc_if.h
   * @author  MCD Application Team
-  * @brief   Applicative configuration, e.g. : debug, trace, low power, sensors
+  * @brief   Header for ADC interface configuration
   ******************************************************************************
   * @attention
   *
@@ -20,14 +20,16 @@
 /* USER CODE END Header */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __SYS_CONF_H__
-#define __SYS_CONF_H__
+#ifndef __ADC_IF_H__
+#define __ADC_IF_H__
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-
 /* Includes ------------------------------------------------------------------*/
+#include "main.h"
+#include "platform.h"
+
 /* USER CODE BEGIN Includes */
 
 /* USER CODE END Includes */
@@ -38,38 +40,18 @@ extern "C" {
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
-
 /**
-  * @brief Temperature and pressure values are retrieved from sensors shield
-  *        (instead of sending dummy values). It requires MEMS IKS shield
+  * @brief Battery level in mV
   */
-#define SENSOR_ENABLED              0
-
+#define BAT_CR2032                  ((uint32_t) 3000)
 /**
-  * @brief  Verbose level for all trace logs
+  * @brief Maximum battery level in mV
   */
-#define VERBOSE_LEVEL               VLEVEL_H
-
+#define VDD_BAT                     BAT_CR2032
 /**
-  * @brief Enable trace logs
+  * @brief Minimum battery level in mV
   */
-#define APP_LOG_ENABLED             1
-
-/**
-  * @brief Enable MCU Debugger pins (dbg serial wires, sbg spi, etc)
-  */
-#define DEBUGGER_ENABLED            0
-
-/**
-  * @brief Enable four wires usable as probes (two of them PROBE1 and PROBE2 used by the MW)
-  */
-#define PROBE_PINS_ENABLED          0
-
-/**
-  * @brief Disable Low Power mode
-  * @note  0: LowPowerMode enabled. MCU enters stop2 mode, 1: LowPowerMode disabled. MCU enters sleep mode only
-  */
-#define LOW_POWER_DISABLE           0
+#define VDD_MIN                     1800
 
 /* USER CODE BEGIN EC */
 
@@ -86,6 +68,29 @@ extern "C" {
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
+
+/**
+  * @brief  Initializes the ADC input
+  */
+void SYS_InitMeasurement(void);
+
+/**
+  * @brief DeInitializes the ADC
+  */
+void SYS_DeInitMeasurement(void);
+
+/**
+  * @brief  Get the current temperature
+  * @return value temperature in degree Celsius( q7.8 )
+  */
+int16_t SYS_GetTemperatureLevel(void);
+
+/**
+  * @brief Get the current battery level
+  * @return value battery level in linear scale
+  */
+uint16_t SYS_GetBatteryLevel(void);
+
 /* USER CODE BEGIN EFP */
 
 /* USER CODE END EFP */
@@ -94,6 +99,6 @@ extern "C" {
 }
 #endif
 
-#endif /* __SYS_CONF_H__ */
+#endif /* __ADC_IF_H__ */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

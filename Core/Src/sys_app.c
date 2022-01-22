@@ -23,7 +23,7 @@
 #include <stdio.h>
 #include "platform.h"
 #include "sys_app.h"
-//#include "adc_if.h"
+#include "adc_if.h"
 #include "stm32_seq.h"
 #include "stm32_systime.h"
 #include "stm32_lpm.h"
@@ -119,7 +119,7 @@ void SystemApp_Init(void)
   UTIL_ADV_TRACE_SetVerboseLevel(VERBOSE_LEVEL);
 
   /*Initialize the temperature and Battery measurement services */
-//  SYS_InitMeasurement();
+  SYS_InitMeasurement();
 
   /*Initialize the Sensors */
   EnvSensors_Init();
@@ -164,7 +164,7 @@ uint8_t GetBatteryLevel(void)
 
   /* USER CODE END GetBatteryLevel_0 */
 
-//  batteryLevelmV = (uint16_t) SYS_GetBatteryLevel();
+  batteryLevelmV = (uint16_t) SYS_GetBatteryLevel();
 
   /* Convert battery level from mV to linear scale: 1 (very low) to 254 (fully charged) */
   if (batteryLevelmV > VDD_BAT)
@@ -193,7 +193,7 @@ uint16_t GetTemperatureLevel(void)
 {
   uint16_t temperatureLevel = 0;
 
-//  temperatureLevel = (uint16_t)(SYS_GetTemperatureLevel() / 256);
+  temperatureLevel = (uint16_t)(SYS_GetTemperatureLevel() / 256);
   /* USER CODE BEGIN GetTemperatureLevel */
 
   /* USER CODE END GetTemperatureLevel */

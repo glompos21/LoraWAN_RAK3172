@@ -1,41 +1,55 @@
 From the RAK3172 Module Low Level Development Reference
-[21:51:47:522] APP_VERSION:        V1.1.0␍␊
-[21:51:47:528] MW_LORAWAN_VERSION: V2.3.0␍␊
-[21:51:47:528] MW_RADIO_VERSION:   V1.1.0␍␊
-[21:51:47:535] ###### OTAA ######␍␊
-[21:51:47:543] ###### AppKey:      2B:7E:15:16:28:AE:D2:A6:AB:F7:15:88:09:CF:4F:3C␍␊
-[21:51:47:548] ###### NwkKey:      2B:7E:15:16:28:AE:D2:A6:AB:F7:15:88:09:CF:4F:3C␍␊
-[21:51:47:555] ###### ABP  ######␍␊
-[21:51:47:555] ###### AppSKey:     2B:7E:15:16:28:AE:D2:A6:AB:F7:15:88:09:CF:4F:3C␍␊
-[21:51:47:562] ###### NwkSKey:     2B:7E:15:16:28:AE:D2:A6:AB:F7:15:88:09:CF:4F:3C␍␊
-[21:51:47:573] ###### DevEui:  5F:2D:35:52:4D:42:B0:D0␍␊
-[21:51:47:573] ###### AppEui:  01:01:01:01:01:01:01:01␍␊
-[21:51:47:573] ###### DevAddr: 00:13:F1:9B␍␊
-[21:51:47:582] 0s028:TX on freq 868300000 Hz at DR 0␍␊
-[21:51:49:035] 1s512:MAC txDone␍␊
-[21:51:54:059] 6s537:RX_1 on freq 868300000 Hz at DR 0␍␊
-[21:51:55:876] 8s354:MAC rxDone␍␊
-[21:51:55:879] ␍␊
-[21:51:55:889] ###### = JOINED = OTAA =====================␍␊
-[21:51:57:748] 10s227:Temp: 65535 RH: 65535 1233 ␍␊
-[21:51:58:249] 10s728:temp= 21␊
-[21:51:58:252] ␍10s728:VDDA= 254␍␊
-[21:51:58:264] 10s732:TX on freq 867100000 Hz at DR 0␍␊
-[21:51:58:264] 10s733:SEND REQUEST␍␊
-[21:51:59:901] 12s380:MAC txDone␍␊
-[21:52:00:927] 13s405:RX_1 on freq 867100000 Hz at DR 0␍␊
-[21:52:02:251] 14s730:MAC rxDone␍␊
-[21:52:02:272] ␍␊
-[21:52:02:272] ###### ========== MCPS-Confirm =============␍␊
-[21:52:02:272] ␍␊
-[21:52:02:272] ###### ========== MCPS-Indication ==========␍␊
-[21:52:07:748] 20s227:Temp: 65535 RH: 65535 1233 ␍␊
-[21:52:08:249] 20s728:temp= 20␊
-[21:52:08:253] ␍20s728:VDDA= 254␍␊
-[21:52:08:266] 20s732:TX on freq 868300000 Hz at DR 0␍␊
-[21:52:08:266] 20s733:SEND REQUEST␍␊
-[21:52:09:901] 22s380:MAC txDone␍␊
-[21:52:10:926] 23s405:RX_1 on freq 868300000 Hz at DR 0␍␊
-[21:52:12:250] 24s730:MAC rxDone␍␊
-[21:52:12:253] ␍␊
-[21:52:12:290] ###### ========== MCPS-Confirm =============␍␊
+APP_VERSION:        V1.1.0
+MW_LORAWAN_VERSION: V2.3.0
+MW_RADIO_VERSION:   V1.1.0
+###### OTAA ######
+###### AppKey:      2B:7E:15:16:28:AE:D2:A6:AB:F7:15:88:09:CF:4F:3C
+###### NwkKey:      2B:7E:15:16:28:AE:D2:A6:AB:F7:15:88:09:CF:4F:3C
+###### ABP  ######
+###### AppSKey:     2B:7E:15:16:28:AE:D2:A6:AB:F7:15:88:09:CF:4F:3C
+###### NwkSKey:     2B:7E:15:16:28:AE:D2:A6:AB:F7:15:88:09:CF:4F:3C
+###### DevEui:  5F:2D:35:52:4D:42:B0:D0
+###### AppEui:  01:01:01:01:01:01:01:01
+###### DevAddr: 00:13:F1:9B
+0s029:TX on freq 868500000 Hz at DR 0
+1s513:MAC txDone
+6s538:RX_1 on freq 868500000 Hz at DR 0
+8s355:MAC rxDone
+
+###### = JOINED = OTAA =====================
+10s228:Temp: 65535 RH: 65535 1233 
+10s729:temp= 19
+10s729:VDDA= 254
+10s733:TX on freq 868300000 Hz at DR 0
+10s734:SEND REQUEST
+12s381:MAC txDone
+13s406:RX_1 on freq 868300000 Hz at DR 0
+14s731:MAC rxDone
+
+###### ========== MCPS-Confirm =============
+
+###### ========== MCPS-Indication ==========
+20s228:Temp: 65535 RH: 65535 1233 
+20s729:temp= 20
+20s729:VDDA= 254
+20s733:TX on freq 868500000 Hz at DR 0
+20s734:SEND REQUEST
+22s381:MAC txDone
+23s406:RX_1 on freq 868500000 Hz at DR 0
+24s731:MAC rxDone
+
+###### ========== MCPS-Confirm =============
+
+###### ========== MCPS-Indication ==========
+30s228:Temp: 65535 RH: 65535 1233 
+30s729:temp= 20
+30s729:VDDA= 254
+30s733:TX on freq 867700000 Hz at DR 0
+30s734:SEND REQUEST
+32s381:MAC txDone
+33s406:RX_1 on freq 867700000 Hz at DR 0
+33s603:IRQ_RX_TX_TIMEOUT
+33s603:MAC rxTimeOut
+34s406:RX_2 on freq 869525000 Hz at DR 0
+34s603:IRQ_RX_TX_TIMEOUT
+34s603:MAC rxTimeOut

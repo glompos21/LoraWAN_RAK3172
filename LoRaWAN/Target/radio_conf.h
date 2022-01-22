@@ -52,11 +52,6 @@ extern SUBGHZ_HandleTypeDef hsubghz;
 /* USER CODE END DBG_GPIO_RADIO */
 
 /**
-  * @brief Max payload buffer size
-  */
-#define RADIO_RX_BUF_SIZE          255
-
-/**
   * @brief drive value used anytime radio is NOT in TX low power mode
   * @note override the default configuration of radio_driver.c
   */
@@ -81,13 +76,7 @@ extern SUBGHZ_HandleTypeDef hsubghz;
   * @brief in XO mode, set internal capacitor (from 0x00 to 0x2F starting 11.2pF with 0.47pF steps)
   * @note override the default configuration of radio_driver.c
   */
-#define XTAL_DEFAULT_CAP_VALUE      0x10 // ( 0x20UL )
-
-/**
-  * @brief Frequency error (in Hz) can be compensated here.
-  *        warning XO frequency error generates (de)modulator sampling time error which can not be compensated
-  */
-#define RF_FREQUENCY_ERROR          ((int32_t) 0)
+#define XTAL_DEFAULT_CAP_VALUE      ( 0x20UL )
 
 /**
   * @brief voltage of vdd tcxo.
@@ -99,14 +88,14 @@ extern SUBGHZ_HandleTypeDef hsubghz;
   * @brief Radio maximum wakeup time (in ms)
   * @note override the default configuration of radio_driver.c
   */
-//#define RF_WAKEUP_TIME              ( 1UL )
+#define RF_WAKEUP_TIME              ( 1UL )
 
 /**
   * @brief DCDC is enabled
   * @remark this define is only used if the DCDC is present on the board
   * @note override the default configuration of radio_driver.c
   */
-//#define DCDC_ENABLE                 ( 1UL )
+#define DCDC_ENABLE                 ( 1UL )
 
 /* USER CODE BEGIN EC */
 
