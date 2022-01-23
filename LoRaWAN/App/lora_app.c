@@ -226,21 +226,6 @@ void LoRaWAN_Init(void)
 {
   /* USER CODE BEGIN LoRaWAN_Init_1 */
 
-//  /* USER CODE END LoRaWAN_Init_1 */
-//#if defined(USE_BSP_DRIVER)
-//  //BSP_LED_Init(LED_BLUE);
-//  //BSP_LED_Init(LED_GREEN);
-//  //BSP_LED_Init(LED_RED);
-//  //BSP_PB_Init(BUTTON_SW2, BUTTON_MODE_EXTI);
-//#elif defined(MX_BOARD_PSEUDODRIVER)
-//  //SYS_LED_Init(//SYS_LED_BLUE);
-//  //SYS_LED_Init(//SYS_LED_GREEN);
-//  //SYS_LED_Init(//SYS_LED_RED);
-//  //SYS_PB_Init(SYS_BUTTON2, SYS_BUTTON_MODE_EXTI);
-//#else
-//#error user to provide its board code or to call his board driver functions
-//#endif  /* USE_BSP_DRIVER || MX_BOARD_PSEUDODRIVER */
-
   /* Get LoRa APP version*/
   APP_LOG(TS_OFF, VLEVEL_M, "APP_VERSION:        V%X.%X.%X\r\n",
           (uint8_t)(__LORA_APP_VERSION >> __APP_VERSION_MAIN_SHIFT),
@@ -292,12 +277,7 @@ void LoRaWAN_Init(void)
   else
   {
     /* USER CODE BEGIN LoRaWAN_Init_3 */
-    /* send every time button is pushed */
-//#if defined(USE_BSP_DRIVER)
-//    //BSP_PB_Init(BUTTON_SW1, BUTTON_MODE_EXTI);
-//#elif defined(MX_BOARD_PSEUDODRIVER)
-//    //SYS_PB_Init(SYS_BUTTON1, SYS_BUTTON_MODE_EXTI);
-//#endif /* USE_BSP_DRIVER || MX_BOARD_PSEUDODRIVER */
+
     /* USER CODE END LoRaWAN_Init_3 */
   }
 
@@ -306,77 +286,6 @@ void LoRaWAN_Init(void)
   /* USER CODE END LoRaWAN_Init_Last */
 }
 
-#if defined(USE_BSP_DRIVER)
-void //BSP_PB_Callback(Button_TypeDef Button)
-{
-#warning: adapt stm32wlxx_it.c to call //BSP_PB_IRQHandler if you want to use BSP
-  /* USER CODE BEGIN //BSP_PB_Callback_1 */
-
-  /* USER CODE END //BSP_PB_Callback_1 */
-  switch (Button)
-  {
-    case  BUTTON_SW1:
-      UTIL_SEQ_SetTask((1 << CFG_SEQ_Task_LoRaSendOnTxTimerOrButtonEvent), CFG_SEQ_Prio_0);
-      /* USER CODE BEGIN PB_Callback 1 */
-      /* USER CODE END PB_Callback 1 */
-      break;
-    case  BUTTON_SW2:
-      /* USER CODE BEGIN PB_Callback 2 */
-      /* USER CODE END PB_Callback 2 */
-      break;
-    case  BUTTON_SW3:
-      /* USER CODE BEGIN PB_Callback 3 */
-      /* USER CODE END PB_Callback 3 */
-      break;
-    default:
-      break;
-  }
-  /* USER CODE BEGIN //BSP_PB_Callback_Last */
-
-  /* USER CODE END //BSP_PB_Callback_Last */
-}
-
-#elif defined(MX_BOARD_PSEUDODRIVER)
-
-/* Note: Current MX does not support EXTI IP neither BSP. */
-/* In order to get a push button IRS by code automatically generated */
-/* this function is today the only available possibility. */
-/* Calling //BSP_PB_Callback() from here it shortcuts the BSP. */
-/* If users wants to go through the BSP, it can remove //BSP_PB_Callback() from here */
-/* and add a call to //BSP_PB_IRQHandler() in the USER CODE SESSION of the */
-/* correspondent EXTIn_IRQHandler() in the stm32wlxx_it.c */
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
-{
-  /* USER CODE BEGIN HAL_GPIO_EXTI_Callback_1 */
-
-//  /* USER CODE END HAL_GPIO_EXTI_Callback_1 */
-//  switch (GPIO_Pin)
-//  {
-//    case  SYS_BUTTON1_PIN:
-//      /* Note: when "EventType == TX_ON_TIMER" this GPIO is not initialised */
-//      UTIL_SEQ_SetTask((1 << CFG_SEQ_Task_LoRaSendOnTxTimerOrButtonEvent), CFG_SEQ_Prio_0);
-//      /* USER CODE BEGIN EXTI_Callback_Switch_B1 */
-//      /* USER CODE END EXTI_Callback_Switch_B1 */
-//      break;
-//    case  SYS_BUTTON2_PIN:
-//      /* USER CODE BEGIN EXTI_Callback_Switch_B2 */
-//      /* USER CODE END EXTI_Callback_Switch_B2 */
-//      break;
-//    /* USER CODE BEGIN EXTI_Callback_Switch_case */
-//
-//    /* USER CODE END EXTI_Callback_Switch_case */
-//    default:
-//    /* USER CODE BEGIN EXTI_Callback_Switch_default */
-//    /* USER CODE END EXTI_Callback_Switch_default */
-//      break;
-//  }
-  /* USER CODE BEGIN HAL_GPIO_EXTI_Callback_Last */
-
-  /* USER CODE END HAL_GPIO_EXTI_Callback_Last */
-}
-#else
-#error user to provide its board code or to call his board driver functions
-#endif  /* USE_BSP_DRIVER || MX_BOARD_PSEUDODRIVER*/
 
 /* Private functions ---------------------------------------------------------*/
 /* USER CODE BEGIN PrFD */
@@ -389,11 +298,7 @@ static void OnRxData(LmHandlerAppData_t *appData, LmHandlerRxParams_t *params)
   /* USER CODE END OnRxData_1 */
   if ((appData != NULL) && (params != NULL))
   {
-#if defined(USE_BSP_DRIVER)
-    //BSP_LED_On(LED_BLUE) ;
-#elif defined(MX_BOARD_PSEUDODRIVER)
-    //SYS_LED_On(//SYS_LED_BLUE) ;
-#endif /* USE_BSP_DRIVER || MX_BOARD_PSEUDODRIVER */
+
     UTIL_TIMER_Start(&RxLedTimer);
 
     static const char *slotStrings[] = { "1", "2", "C", "C Multicast", "B Ping-Slot", "B Multicast Ping-Slot" };
@@ -436,21 +341,10 @@ static void OnRxData(LmHandlerAppData_t *appData, LmHandlerRxParams_t *params)
           if (AppLedStateOn == RESET)
           {
             APP_LOG(TS_OFF, VLEVEL_H,   "LED OFF\r\n");
-
-//#if defined(USE_BSP_DRIVER)
-//            //BSP_LED_Off(LED_RED) ;
-//#elif defined(MX_BOARD_PSEUDODRIVER)
-//            //SYS_LED_Off(//SYS_LED_RED) ;
-//#endif /* USE_BSP_DRIVER || MX_BOARD_PSEUDODRIVER */
           }
           else
           {
             APP_LOG(TS_OFF, VLEVEL_H, "LED ON\r\n");
-//#if defined(USE_BSP_DRIVER)
-//            //BSP_LED_On(LED_RED) ;
-//#elif defined(MX_BOARD_PSEUDODRIVER)
-//            //SYS_LED_On(//SYS_LED_RED) ;
-//#endif /* USE_BSP_DRIVER || MX_BOARD_PSEUDODRIVER */
           }
         }
         break;
@@ -602,13 +496,6 @@ static void OnTxTimerLedEvent(void *context)
   /* USER CODE BEGIN OnTxTimerLedEvent_1 */
 
   /* USER CODE END OnTxTimerLedEvent_1 */
-//#if defined(USE_BSP_DRIVER)
-//  //BSP_LED_Off(LED_GREEN) ;
-//#else
-//  //SYS_LED_Off(//SYS_LED_GREEN) ;
-//#endif /* USE_BSP_DRIVER || MX_BOARD_PSEUDODRIVER */
-  /* USER CODE BEGIN OnTxTimerLedEvent_2 */
-
   /* USER CODE END OnTxTimerLedEvent_2 */
 }
 
@@ -617,11 +504,7 @@ static void OnRxTimerLedEvent(void *context)
   /* USER CODE BEGIN OnRxTimerLedEvent_1 */
 
   /* USER CODE END OnRxTimerLedEvent_1 */
-//#if defined(USE_BSP_DRIVER)
-//  //BSP_LED_Off(LED_BLUE) ;
-//#else
-//  //SYS_LED_Off(//SYS_LED_BLUE) ;
-//#endif /* USE_BSP_DRIVER || MX_BOARD_PSEUDODRIVER */
+
   /* USER CODE BEGIN OnRxTimerLedEvent_2 */
 
   /* USER CODE END OnRxTimerLedEvent_2 */
@@ -632,11 +515,7 @@ static void OnJoinTimerLedEvent(void *context)
   /* USER CODE BEGIN OnJoinTimerLedEvent_1 */
 
   /* USER CODE END OnJoinTimerLedEvent_1 */
-//#if defined(USE_BSP_DRIVER)
-//  //BSP_LED_Toggle(LED_RED) ;
-//#else
-//  //SYS_LED_Toggle(//SYS_LED_RED) ;
-//#endif /* USE_BSP_DRIVER || MX_BOARD_PSEUDODRIVER */
+
   /* USER CODE BEGIN OnJoinTimerLedEvent_2 */
 
   /* USER CODE END OnJoinTimerLedEvent_2 */
@@ -648,11 +527,7 @@ static void OnTxData(LmHandlerTxParams_t *params)
   /* USER CODE END OnTxData_1 */
   if ((params != NULL) && (params->IsMcpsConfirm != 0))
   {
-//#if defined(USE_BSP_DRIVER)
-//    //BSP_LED_On(LED_GREEN) ;
-//#elif defined(MX_BOARD_PSEUDODRIVER)
-//    //SYS_LED_On(//SYS_LED_GREEN) ;
-//#endif /* USE_BSP_DRIVER || MX_BOARD_PSEUDODRIVER */
+
     UTIL_TIMER_Start(&TxLedTimer);
 
     APP_LOG(TS_OFF, VLEVEL_M, "\r\n###### ========== MCPS-Confirm =============\r\n");
@@ -684,12 +559,6 @@ static void OnJoinRequest(LmHandlerJoinParams_t *joinParams)
     if (joinParams->Status == LORAMAC_HANDLER_SUCCESS)
     {
       UTIL_TIMER_Stop(&JoinLedTimer);
-
-//#if defined(USE_BSP_DRIVER)
-//      //BSP_LED_Off(LED_RED) ;
-//#elif defined(MX_BOARD_PSEUDODRIVER)
-//      //SYS_LED_Off(//SYS_LED_RED) ;
-//#endif /* USE_BSP_DRIVER || MX_BOARD_PSEUDODRIVER */
 
       APP_LOG(TS_OFF, VLEVEL_M, "\r\n###### = JOINED = ");
       if (joinParams->Mode == ACTIVATION_TYPE_ABP)
