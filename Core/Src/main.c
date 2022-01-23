@@ -23,6 +23,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "si7021.h"
 
 /* USER CODE END Includes */
 
@@ -104,7 +105,7 @@ int main(void)
   MX_DMA_Init();
   MX_LoRaWAN_Init();
   /* USER CODE BEGIN 2 */
-
+  si7021_set_config(&hi2c2,SI7021_HEATER_OFF,SI7021_RESOLUTION_RH12_TEMP14);
   /* USER CODE END 2 */
 
   /* Infinite loop */
