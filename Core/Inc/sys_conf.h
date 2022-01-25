@@ -68,7 +68,6 @@ extern "C" {
 /**
   * @brief Disable Low Power mode
   * @note  0: LowPowerMode enabled. MCU enters stop2 mode, 1: LowPowerMode disabled. MCU enters sleep mode only
-  *  Need to set PWR_ExitStopMode to enable what have been disable when entering
   */
 #define LOW_POWER_DISABLE           0
 
