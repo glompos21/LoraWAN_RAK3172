@@ -5,7 +5,7 @@ the files on LoRAWAN/Target with the files provided by Rakwireless for [Low Leve
 
 
 
- ## 
+ ## Instruction to changes after autogenerate files from ioc
 
 Core/Inc/main.c
 Remove static from all functions
