@@ -7,14 +7,12 @@ the files on LoRAWAN/Target with the files provided by Rakwireless for [Low Leve
 
  ## Instruction to changes after autogenerate files from ioc
 
-Core/Inc/main.c
-Remove static from all functions
+1. Core/Inc/main.c: Remove static from all functions
 
-Core/Inc/platform.h
-Comment line32 // #define USE_BSP_DRIVER
-Replace files from RAK3172LowLevelDevelopmentSourceFiles:
+2. Core/Inc/platform.h: Comment line32 // #define USE_BSP_DRIVER
 
-radio.c-> Middlewares/Third_Party/SubGHz_Phy/stm32_radio_driver/radio.c
-	Replace it with the included or comment all the DBG functions
+3. Replace files from RAK3172LowLevelDevelopmentSourceFiles:
+
+radio.c-> Middlewares/Third_Party/SubGHz_Phy/stm32_radio_driver/radio.c : Replace it with the included or comment all the DBG functions
 lora_app.c -> LoRaWAN/App/lora_app.c
 radio_conf.h, radio_board_if.h, radio_board_if.c -> LoRaWAN/Target
