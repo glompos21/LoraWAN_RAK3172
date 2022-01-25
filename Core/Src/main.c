@@ -23,7 +23,6 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "si7021.h"
 
 /* USER CODE END Includes */
 
@@ -59,10 +58,10 @@ DMA_HandleTypeDef hdma_usart2_tx;
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
-static void MX_GPIO_Init(void);
-static void MX_I2C2_Init(void);
-static void MX_SUBGHZ_Init(void);
-static void MX_DMA_Init(void);
+void MX_GPIO_Init(void);
+void MX_I2C2_Init(void);
+void MX_SUBGHZ_Init(void);
+void MX_DMA_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -105,7 +104,7 @@ int main(void)
   MX_DMA_Init();
   MX_LoRaWAN_Init();
   /* USER CODE BEGIN 2 */
-  si7021_set_config(&hi2c2,SI7021_HEATER_OFF,SI7021_RESOLUTION_RH12_TEMP14);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -216,7 +215,7 @@ void MX_ADC_Init(void)
   * @param None
   * @retval None
   */
-static void MX_I2C2_Init(void)
+void MX_I2C2_Init(void)
 {
 
   /* USER CODE BEGIN I2C2_Init 0 */
@@ -321,7 +320,7 @@ void MX_RTC_Init(void)
   * @param None
   * @retval None
   */
-static void MX_SUBGHZ_Init(void)
+void MX_SUBGHZ_Init(void)
 {
 
   /* USER CODE BEGIN SUBGHZ_Init 0 */
@@ -393,7 +392,7 @@ void MX_USART2_UART_Init(void)
 /**
   * Enable DMA controller clock
   */
-static void MX_DMA_Init(void)
+void MX_DMA_Init(void)
 {
 
   /* DMA controller clock enable */
@@ -412,7 +411,7 @@ static void MX_DMA_Init(void)
   * @param None
   * @retval None
   */
-static void MX_GPIO_Init(void)
+void MX_GPIO_Init(void)
 {
 
   /* GPIO Ports Clock Enable */
