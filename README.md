@@ -12,10 +12,9 @@ Remove static from all functions
 
 Core/Inc/platform.h
 Comment line32 // #define USE_BSP_DRIVER
-
-Middlewares/Third_Party/SubGHz_Phy/stm32_radio_driver/radio.c
-Replace it with the included or comment all the DBG functions
-
 Replace files from RAK3172LowLevelDevelopmentSourceFiles:
+
+radio.c-> Middlewares/Third_Party/SubGHz_Phy/stm32_radio_driver/radio.c
+	Replace it with the included or comment all the DBG functions
 lora_app.c -> LoRaWAN/App/lora_app.c
 radio_conf.h, radio_board_if.h, radio_board_if.c -> LoRaWAN/Target
