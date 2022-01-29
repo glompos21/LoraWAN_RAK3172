@@ -26,7 +26,7 @@
 #include "usart_if.h"
 
 /* USER CODE BEGIN Includes */
-
+#include "sys_app.h"
 /* USER CODE END Includes */
 
 /* External variables ---------------------------------------------------------*/
@@ -93,7 +93,7 @@ void PWR_ExitOffMode(void)
 void PWR_EnterStopMode(void)
 {
   /* USER CODE BEGIN EnterStopMode_1 */
-
+//	APP_LOG(TS_OFF, VLEVEL_H, "Enter StopMode\r\n");
   /* USER CODE END EnterStopMode_1 */
   HAL_SuspendTick();
   /* Clear Status Flag before entering STOP/STANDBY Mode */
@@ -126,14 +126,15 @@ void PWR_ExitStopMode(void)
 
   MX_GPIO_Init();
   MX_I2C2_Init();
-
+//  APP_LOG(TS_OFF, VLEVEL_H, "Waking StopMode\r\n");
   /* USER CODE END ExitStopMode_2 */
 }
 
 void PWR_EnterSleepMode(void)
 {
   /* USER CODE BEGIN EnterSleepMode_1 */
-
+	// enter/exits sleep mode very very oftern
+//	APP_LOG(TS_OFF, VLEVEL_H, "Enter SleepMode\r\n");
   /* USER CODE END EnterSleepMode_1 */
   /* Suspend sysTick */
   HAL_SuspendTick();
@@ -156,6 +157,7 @@ void PWR_ExitSleepMode(void)
 
   /* USER CODE BEGIN ExitSleepMode_2 */
 
+//  APP_LOG(TS_OFF, VLEVEL_H, "Exit SleepMode\r\n");
   /* USER CODE END ExitSleepMode_2 */
 }
 
