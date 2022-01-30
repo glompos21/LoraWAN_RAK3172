@@ -404,7 +404,6 @@ static void SendTxData(void)
   Temperature_DegreeCelsius=(Temperature_DegreeCelsius/100U);
   APP_LOG(TS_ON, VLEVEL_L, "Temperature = %d\n\r", Temperature_DegreeCelsius);
 
-
   // building
 //  uint8_t channel = 0;
   uint16_t i = 0;
@@ -413,10 +412,16 @@ static void SendTxData(void)
   uint8_t app_data_buffer[LORAWAN_APP_DATA_BUFF_SIZE];			  //< Lora user application data buffer.
   memset(app_data_buffer, 0, LORAWAN_APP_DATA_BUFF_SIZE);
   app_data_buffer[i++] = 0x01;
-  app_data_buffer[i++] = (uint8_t)(tempC >> 8);
-  app_data_buffer[i++] = (uint8_t)tempC;
-  app_data_buffer[i++] = (uint8_t)(humidity1 >> 8);
-  app_data_buffer[i++] = (uint8_t)humidity1;
+  app_data_buffer[i++] = (uint8_t)(tempC >> 8);//1
+  app_data_buffer[i++] = (uint8_t)tempC;//2
+  app_data_buffer[i++] = (uint8_t)(humidity1 >> 8);//3
+  app_data_buffer[i++] = (uint8_t)humidity1;//4
+  app_data_buffer[i++] = (uint8_t)((adc_vref_mVolt & 0x00FF0000) >> 16);//5  can send  up to 65535
+  app_data_buffer[i++] = (uint8_t)((adc_vref_mVolt & 0x0000FF00) >> 8);//6
+  app_data_buffer[i++] = (uint8_t)(adc_vref_mVolt & 0x000000FF);//7
+
+
+
 
 //  CayenneLppReset();
 //  CayenneLppAddTemperature(channel++, tempC);
