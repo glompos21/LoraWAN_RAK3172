@@ -367,6 +367,12 @@ static void SendTxData(void)
 {
   UTIL_TIMER_Time_t nextTxIn = 0;
 
+	__IO uint16_t adc_vref = 0U;;
+	__IO uint16_t adc_vref_mVolt = 0U;;
+	__IO uint16_t adc_int2 = 0U;;
+	__IO uint16_t adc_int2_mVolt = 0U;;
+	__IO  int16_t Temperature_DegreeCelsius = 0U; /* Value of temperature calculated from ADC conversion data (unit: degree Celsius) */
+
   // Start humidity measurement
   uint32_t humidity1 = si7021_measure_humidity(&hi2c2);
   if (humidity1 == SI7021_MEASURE_FAILED) {
@@ -381,13 +387,38 @@ static void SendTxData(void)
   }
   APP_LOG(TS_ON, VLEVEL_L, "Temp: %u RH: %u \r\n",((uint32_t)tempC),((uint32_t)humidity1));
 
+  // Drivers/STM32WLxx_HAL_Driver/Inc/stm32wlxx_hal_adc.h to get
+  adc_vref=ADC_ReadChannels(ADC_CHANNEL_VREFINT);
+  adc_vref_mVolt=__LL_ADC_CALC_VREFANALOG_VOLTAGE(adc_vref, LL_ADC_RESOLUTION_12B);
+  APP_LOG(TS_ON, VLEVEL_L, "adc_vref = %d\n\r", adc_vref);
+  APP_LOG(TS_ON, VLEVEL_L, "adc_vref_mVolt = %d\n\r", adc_vref_mVolt);
+  HAL_Delay(50);
+
+  adc_int2 = ADC_ReadChannels(ADC_CHANNEL_2);
+  adc_int2_mVolt= __LL_ADC_CALC_DATA_TO_VOLTAGE(adc_vref_mVolt,adc_int2, LL_ADC_RESOLUTION_12B);
+  APP_LOG(TS_ON, VLEVEL_L, "adc_int2 = %d\n\r", adc_int2);
+  APP_LOG(TS_ON, VLEVEL_L, "adc_int2_mVolt = %d\n\r", adc_int2_mVolt);
+  Temperature_DegreeCelsius= __LL_ADC_CALC_TEMPERATURE(adc_vref,ADC_ReadChannels(ADC_CHANNEL_TEMPSENSOR), LL_ADC_RESOLUTION_12B);
+  /* from int16 to q8.7*/
+  Temperature_DegreeCelsius <<= 8;
+  Temperature_DegreeCelsius=(Temperature_DegreeCelsius/100U);
+  APP_LOG(TS_ON, VLEVEL_L, "Temperature = %d\n\r", Temperature_DegreeCelsius);
+
+
+  // building Cayennelpp
   uint8_t channel = 0;
   AppData.Port = LORAWAN_USER_APP_PORT;
 
   CayenneLppReset();
   CayenneLppAddTemperature(channel++, tempC);
   CayenneLppAddRelativeHumidity(channel++, humidity1);
-  CayenneLppAddDigitalInput(channel++, GetBatteryLevel());
+  CayenneLppAddTemperature(channel++, Temperature_DegreeCelsius);
+  CayenneLppAddTemperature(channel++, 3200); //correct
+  CayenneLppAddTemperature(channel++, 3500); // problem
+
+  CayenneLppAddAnalogInput(channel++, 32);
+  CayenneLppAddAnalogInput(channel++, 1023);
+  CayenneLppAddAnalogInput(channel++,1050 );
   CayenneLppCopy(AppData.Buffer);
   AppData.BufferSize = CayenneLppGetSize();
 

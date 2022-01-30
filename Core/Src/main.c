@@ -80,11 +80,7 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 
-	__IO uint16_t adc_vref = 0U;;
-	__IO uint16_t adc_vref_mVolt = 0U;;
-	__IO uint16_t adc_int2 = 0U;;
-	__IO uint16_t adc_int2_mVolt = 0U;;
-	__IO  int16_t Temperature_DegreeCelsius = 0U; /* Value of temperature calculated from ADC conversion data (unit: degree Celsius) */
+
 
    /* USER CODE END 1 */
 
@@ -122,31 +118,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-//    MX_LoRaWAN_Process();
-//	  SYS_GetTemperatureLevel();
-//	  HAL_Delay(50);
-//	  SYS_GetBatteryLevel;
-//	  HAL_Delay(50);
-	  // Drivers/STM32WLxx_HAL_Driver/Inc/stm32wlxx_hal_adc.h to get
-
-//	  __IO  int16_t Temperature_DegreeCelsius = 0U;
-
-
-	  adc_vref=ADC_ReadChannels(ADC_CHANNEL_VREFINT);
-      adc_vref_mVolt=__LL_ADC_CALC_VREFANALOG_VOLTAGE(adc_vref, LL_ADC_RESOLUTION_12B);
-	  APP_LOG(TS_ON, VLEVEL_L, "adc_vref = %d\n\r", adc_vref);
-	  APP_LOG(TS_ON, VLEVEL_L, "adc_vref_mVolt = %d\n\r", adc_vref_mVolt);
-	  HAL_Delay(50);
-
-	  adc_int2 = ADC_ReadChannels(ADC_CHANNEL_2);
-	  adc_int2_mVolt= __LL_ADC_CALC_DATA_TO_VOLTAGE(adc_vref_mVolt,adc_int2, LL_ADC_RESOLUTION_12B);
-	  APP_LOG(TS_ON, VLEVEL_L, "adc_int2 = %d\n\r", adc_int2);
-	  APP_LOG(TS_ON, VLEVEL_L, "adc_int2_mVolt = %d\n\r", adc_int2_mVolt);
-	  Temperature_DegreeCelsius= __LL_ADC_CALC_TEMPERATURE(adc_vref,ADC_ReadChannels(ADC_CHANNEL_TEMPSENSOR), LL_ADC_RESOLUTION_12B);
-	  /* from int16 to q8.7*/
-	  Temperature_DegreeCelsius <<= 8;
-	  APP_LOG(TS_ON, VLEVEL_L, "Temperature = %d\n\r", Temperature_DegreeCelsius);
-	  HAL_Delay(1000);
+    MX_LoRaWAN_Process();
 
     /* USER CODE BEGIN 3 */
   }
