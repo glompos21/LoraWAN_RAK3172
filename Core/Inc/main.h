@@ -54,7 +54,7 @@ extern "C" {
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-
+uint32_t ADC_ReadChannels(uint32_t);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/

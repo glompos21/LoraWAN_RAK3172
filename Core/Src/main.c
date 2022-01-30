@@ -24,7 +24,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "si7021.h"
-
+#include "sys_app.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -80,7 +80,13 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 
-  /* USER CODE END 1 */
+	__IO uint16_t adc_vref = 0U;;
+	__IO uint16_t adc_vref_mVolt = 0U;;
+	__IO uint16_t adc_int2 = 0U;;
+	__IO uint16_t adc_int2_mVolt = 0U;;
+	__IO  int16_t Temperature_DegreeCelsius = 0U; /* Value of temperature calculated from ADC conversion data (unit: degree Celsius) */
+
+   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
 
@@ -104,8 +110,11 @@ int main(void)
   MX_SUBGHZ_Init();
   MX_DMA_Init();
   MX_LoRaWAN_Init();
+//  HAL_ADC_MspInit(&hadc);
   /* USER CODE BEGIN 2 */
   si7021_set_config(&hi2c2,SI7021_HEATER_OFF,SI7021_RESOLUTION_RH12_TEMP14);
+
+  MX_ADC_Init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -113,7 +122,31 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-    MX_LoRaWAN_Process();
+//    MX_LoRaWAN_Process();
+//	  SYS_GetTemperatureLevel();
+//	  HAL_Delay(50);
+//	  SYS_GetBatteryLevel;
+//	  HAL_Delay(50);
+	  // Drivers/STM32WLxx_HAL_Driver/Inc/stm32wlxx_hal_adc.h to get
+
+//	  __IO  int16_t Temperature_DegreeCelsius = 0U;
+
+
+	  adc_vref=ADC_ReadChannels(ADC_CHANNEL_VREFINT);
+      adc_vref_mVolt=__LL_ADC_CALC_VREFANALOG_VOLTAGE(adc_vref, LL_ADC_RESOLUTION_12B);
+	  APP_LOG(TS_ON, VLEVEL_L, "adc_vref = %d\n\r", adc_vref);
+	  APP_LOG(TS_ON, VLEVEL_L, "adc_vref_mVolt = %d\n\r", adc_vref_mVolt);
+	  HAL_Delay(50);
+
+	  adc_int2 = ADC_ReadChannels(ADC_CHANNEL_2);
+	  adc_int2_mVolt= __LL_ADC_CALC_DATA_TO_VOLTAGE(adc_vref_mVolt,adc_int2, LL_ADC_RESOLUTION_12B);
+	  APP_LOG(TS_ON, VLEVEL_L, "adc_int2 = %d\n\r", adc_int2);
+	  APP_LOG(TS_ON, VLEVEL_L, "adc_int2_mVolt = %d\n\r", adc_int2_mVolt);
+	  Temperature_DegreeCelsius= __LL_ADC_CALC_TEMPERATURE(adc_vref,ADC_ReadChannels(ADC_CHANNEL_TEMPSENSOR), LL_ADC_RESOLUTION_12B);
+	  /* from int16 to q8.7*/
+	  Temperature_DegreeCelsius <<= 8;
+	  APP_LOG(TS_ON, VLEVEL_L, "Temperature = %d\n\r", Temperature_DegreeCelsius);
+	  HAL_Delay(1000);
 
     /* USER CODE BEGIN 3 */
   }
@@ -183,7 +216,7 @@ void MX_ADC_Init(void)
   /** Configure the global features of the ADC (Clock, Resolution, Data Alignment and number of conversion)
   */
   hadc.Instance = ADC;
-  hadc.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV2;
+  hadc.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV4;
   hadc.Init.Resolution = ADC_RESOLUTION_12B;
   hadc.Init.DataAlign = ADC_DATAALIGN_RIGHT;
   hadc.Init.ScanConvMode = ADC_SCAN_DISABLE;
@@ -423,6 +456,54 @@ void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+uint32_t ADC_ReadChannels(uint32_t channel)
+{
+  /* USER CODE BEGIN ADC_ReadChannels_1 */
+
+  /* USER CODE END ADC_ReadChannels_1 */
+  uint32_t ADCxConvertedValues = 0;
+  ADC_ChannelConfTypeDef sConfig = {0};
+
+  MX_ADC_Init();
+
+  /* Start Calibration */
+  if (HAL_ADCEx_Calibration_Start(&hadc) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  /* Configure Regular Channel */
+  sConfig.Channel = channel;
+  sConfig.Rank = ADC_REGULAR_RANK_1;
+//  sConfig.SamplingTime = ADC_SAMPLINGTIME_COMMON_1;
+  sConfig.SamplingTime = LL_ADC_SAMPLINGTIME_160CYCLES_5;
+  if (HAL_ADC_ConfigChannel(&hadc, &sConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  if (HAL_ADC_Start(&hadc) != HAL_OK)
+  {
+    /* Start Error */
+    Error_Handler();
+  }
+  /** Wait for end of conversion */
+  HAL_ADC_PollForConversion(&hadc, HAL_MAX_DELAY);
+
+  /** Wait for end of conversion */
+  HAL_ADC_Stop(&hadc) ;   /* it calls also ADC_Disable() */
+
+  ADCxConvertedValues = HAL_ADC_GetValue(&hadc);
+
+  HAL_ADC_DeInit(&hadc);
+
+  return ADCxConvertedValues;
+  /* USER CODE BEGIN ADC_ReadChannels_2 */
+
+  /* USER CODE END ADC_ReadChannels_2 */
+}
+
 
 /* USER CODE END 4 */
 
