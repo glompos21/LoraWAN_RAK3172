@@ -1,6 +1,6 @@
 #MicroXplorer Configuration settings - do not modify
 ADC.ClockPrescaler=ADC_CLOCK_SYNC_PCLK_DIV4
-ADC.IPParameters=NbrOfConversion,SelectedChannel,ClockPrescaler
+ADC.IPParameters=NbrOfConversion,ClockPrescaler,SelectedChannel
 ADC.NbrOfConversion=1
 ADC.SelectedChannel=ADC_CHANNEL_2|ADC_CHANNEL_3|ADC_CHANNEL_TEMPSENSOR|ADC_CHANNEL_VREFINT|ADC_CHANNEL_VBAT
 Dma.Request0=USART2_TX
@@ -268,4 +268,4 @@ VP_TIMER_VS_TIMER.Signal=TIMER_VS_TIMER
 VP_TINY_LPM_VS_TINY_LPM.Mode=TINY_LPM_Enabled
 VP_TINY_LPM_VS_TINY_LPM.Signal=TINY_LPM_VS_TINY_LPM
 board=custom
-isbadioc=true
+isbadioc=false
