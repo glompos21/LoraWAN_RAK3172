@@ -378,7 +378,7 @@ static void SendTxData(void)
   if (humidity1 == SI7021_MEASURE_FAILED) {
     // Error happened :(
   }
-
+  humidity1=humidity1*100; // to be 67.32 6732
   // As a side effect si7021 measures temperate together with humidity
   // so you can just read it without additional measurement
   int32_t tempC = si7021_read_previous_temperature(&hi2c2);
@@ -405,22 +405,32 @@ static void SendTxData(void)
   APP_LOG(TS_ON, VLEVEL_L, "Temperature = %d\n\r", Temperature_DegreeCelsius);
 
 
-  // building Cayennelpp
-  uint8_t channel = 0;
+  // building
+//  uint8_t channel = 0;
+  uint16_t i = 0;
   AppData.Port = LORAWAN_USER_APP_PORT;
+  uint8_t LORAWAN_APP_DATA_BUFF_SIZE=64;
+  uint8_t app_data_buffer[LORAWAN_APP_DATA_BUFF_SIZE];			  //< Lora user application data buffer.
+  memset(app_data_buffer, 0, LORAWAN_APP_DATA_BUFF_SIZE);
+  app_data_buffer[i++] = 0x01;
+  app_data_buffer[i++] = (uint8_t)(tempC >> 8);
+  app_data_buffer[i++] = (uint8_t)tempC;
+  app_data_buffer[i++] = (uint8_t)(humidity1 >> 8);
+  app_data_buffer[i++] = (uint8_t)humidity1;
 
-  CayenneLppReset();
-  CayenneLppAddTemperature(channel++, tempC);
-  CayenneLppAddRelativeHumidity(channel++, humidity1);
-  CayenneLppAddTemperature(channel++, Temperature_DegreeCelsius);
-  CayenneLppAddTemperature(channel++, 3200); //correct
-  CayenneLppAddTemperature(channel++, 3500); // problem
-
-  CayenneLppAddAnalogInput(channel++, 32);
-  CayenneLppAddAnalogInput(channel++, 1023);
-  CayenneLppAddAnalogInput(channel++,1050 );
-  CayenneLppCopy(AppData.Buffer);
-  AppData.BufferSize = CayenneLppGetSize();
+//  CayenneLppReset();
+//  CayenneLppAddTemperature(channel++, tempC);
+//  CayenneLppAddRelativeHumidity(channel++, humidity1);
+//  CayenneLppAddTemperature(channel++, Temperature_DegreeCelsius);
+//  CayenneLppAddTemperature(channel++, 3200); //correct
+//  CayenneLppAddTemperature(channel++, 3500); // problem
+//
+//  CayenneLppAddAnalogInput(channel++, 32);
+//  CayenneLppAddAnalogInput(channel++, 1023);
+//  CayenneLppAddAnalogInput(channel++,1050 );
+  UTIL_MEM_cpy_8(AppData.Buffer, app_data_buffer, i);
+//  CayenneLppCopy(AppData.Buffer);
+  AppData.BufferSize = i;
 
   /* USER CODE BEGIN SendTxData_1 */
 
