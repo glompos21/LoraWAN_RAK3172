@@ -1,7 +1,16 @@
 #MicroXplorer Configuration settings - do not modify
+ADC.Channel-0\#ChannelRegularConversion=ADC_CHANNEL_2
 ADC.ClockPrescaler=ADC_CLOCK_SYNC_PCLK_DIV4
-ADC.IPParameters=NbrOfConversion,ClockPrescaler,SelectedChannel
+ADC.EnableRegularConversion=ENABLE
+ADC.IPParameters=NbrOfConversion,ClockPrescaler,SelectedChannel,SamplingTimeCommon1,OversamplingMode,RightBitShift,Ratio,EnableRegularConversion,Rank-0\#ChannelRegularConversion,Channel-0\#ChannelRegularConversion,SamplingTime-0\#ChannelRegularConversion,NbrOfConversionFlag
 ADC.NbrOfConversion=1
+ADC.NbrOfConversionFlag=1
+ADC.OversamplingMode=ENABLE
+ADC.Rank-0\#ChannelRegularConversion=1
+ADC.Ratio=ADC_OVERSAMPLING_RATIO_16
+ADC.RightBitShift=ADC_RIGHTBITSHIFT_4
+ADC.SamplingTime-0\#ChannelRegularConversion=ADC_SAMPLINGTIME_COMMON_1
+ADC.SamplingTimeCommon1=ADC_SAMPLETIME_160CYCLES_5
 ADC.SelectedChannel=ADC_CHANNEL_2|ADC_CHANNEL_3|ADC_CHANNEL_TEMPSENSOR|ADC_CHANNEL_VREFINT|ADC_CHANNEL_VBAT
 Dma.Request0=USART2_TX
 Dma.RequestsNb=1

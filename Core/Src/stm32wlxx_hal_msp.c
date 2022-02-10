@@ -95,8 +95,8 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
 
     __HAL_RCC_GPIOB_CLK_ENABLE();
     /**ADC GPIO Configuration
-    PB3     ------> ADC_IN2 ADC_CHANNEL_2
-    PB4     ------> ADC_IN3 ADC_CHANNEL_3
+    PB3     ------> ADC_IN2
+    PB4     ------> ADC_IN3
     */
     GPIO_InitStruct.Pin = GPIO_PIN_3|GPIO_PIN_4;
     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;

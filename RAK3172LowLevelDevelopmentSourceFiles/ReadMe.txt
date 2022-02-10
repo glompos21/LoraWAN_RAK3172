@@ -1,7 +1,6 @@
 radio.c (Middlewares/Third_Party/SubGHz_Phy/stm32_radio_driver/radio.c)
 Commented all the DBG functions
 
-
 lora_app.c (LoRaWAN/App/lora_app.c)
 Commented SYS_LED, BSP_LED etc
 

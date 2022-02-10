@@ -69,7 +69,32 @@ void MX_DMA_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+void testADC(void){
+	__IO uint16_t adc_vref = 0U;
+	__IO uint16_t adc_vref_mVolt = 0U;
+	__IO uint16_t adc_int2 = 0U;
+	__IO uint16_t adc_int3 = 0U;
+	__IO uint16_t adc_int2_mVolt = 0U;
+	__IO uint16_t adc_int3_mVolt = 0U;
+	  adc_vref=ADC_ReadChannels(ADC_CHANNEL_VREFINT);
+	  adc_vref_mVolt=__LL_ADC_CALC_VREFANALOG_VOLTAGE(adc_vref, LL_ADC_RESOLUTION_12B);
+//	  APP_LOG(TS_ON, VLEVEL_L, "adc_vref = %d\n\r", adc_vref);
+//	  APP_LOG(TS_ON, VLEVEL_L, "adc_vref_mVolt = %d\n\r", adc_vref_mVolt);
+	  HAL_Delay(50);
 
+	  adc_int2 = ADC_ReadChannels(ADC_CHANNEL_2);
+	  adc_int2_mVolt= __LL_ADC_CALC_DATA_TO_VOLTAGE(adc_vref_mVolt,adc_int2, LL_ADC_RESOLUTION_12B);
+//	  APP_LOG(TS_ON, VLEVEL_L, "adc_int2 = %d\n\r", adc_int2);
+//	  APP_LOG(TS_ON, VLEVEL_L, "adc_int2_mVolt = %d\n\r", adc_int2_mVolt);
+	  HAL_Delay(50);
+	  adc_int3 = ADC_ReadChannels(ADC_CHANNEL_3);
+	  adc_int3_mVolt = __LL_ADC_CALC_DATA_TO_VOLTAGE(adc_vref_mVolt,adc_int3, LL_ADC_RESOLUTION_12B);
+//	  APP_LOG(TS_ON, VLEVEL_L, "adc_int3 = %d\n\r", adc_int3);
+//	   APP_LOG(TS_ON, VLEVEL_L, "adc_int3_mVolt = %d\n\r", adc_int3_mVolt);
+	  APP_LOG(TS_ON, VLEVEL_L, "%d,%d,%d,%d,%d,%d \n\r",adc_vref,adc_vref_mVolt,adc_int2,adc_int2_mVolt,adc_int3, adc_int3_mVolt);
+	  HAL_Delay(1000);
+
+}
 /* USER CODE END 0 */
 
 /**
@@ -82,7 +107,7 @@ int main(void)
 
 
 
-   /* USER CODE END 1 */
+  /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
 
@@ -106,8 +131,8 @@ int main(void)
   MX_SUBGHZ_Init();
   MX_DMA_Init();
   MX_LoRaWAN_Init();
-//  HAL_ADC_MspInit(&hadc);
   /* USER CODE BEGIN 2 */
+  HAL_ADC_MspInit(&hadc);
   si7021_set_config(&hi2c2,SI7021_HEATER_OFF,SI7021_RESOLUTION_RH12_TEMP14);
 
   MX_ADC_Init();
@@ -118,8 +143,8 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-    MX_LoRaWAN_Process();
-
+//    MX_LoRaWAN_Process();
+	  testADC();
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -182,6 +207,8 @@ void MX_ADC_Init(void)
 
   /* USER CODE END ADC_Init 0 */
 
+  ADC_ChannelConfTypeDef sConfig = {0};
+
   /* USER CODE BEGIN ADC_Init 1 */
 
   /* USER CODE END ADC_Init 1 */
@@ -202,14 +229,26 @@ void MX_ADC_Init(void)
   hadc.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
   hadc.Init.DMAContinuousRequests = DISABLE;
   hadc.Init.Overrun = ADC_OVR_DATA_PRESERVED;
-  hadc.Init.SamplingTimeCommon1 = ADC_SAMPLETIME_1CYCLE_5;
+  hadc.Init.SamplingTimeCommon1 = ADC_SAMPLETIME_160CYCLES_5;
   hadc.Init.SamplingTimeCommon2 = ADC_SAMPLETIME_1CYCLE_5;
-  hadc.Init.OversamplingMode = DISABLE;
+  hadc.Init.OversamplingMode = ENABLE;
+  hadc.Init.Oversampling.Ratio = ADC_OVERSAMPLING_RATIO_16;
+  hadc.Init.Oversampling.RightBitShift = ADC_RIGHTBITSHIFT_4;
+  hadc.Init.Oversampling.TriggeredMode = ADC_TRIGGEREDMODE_SINGLE_TRIGGER;
   hadc.Init.TriggerFrequencyMode = ADC_TRIGGER_FREQ_HIGH;
   if (HAL_ADC_Init(&hadc) != HAL_OK)
   {
     Error_Handler();
   }
+  /** Configure Regular Channel
+  */
+//  sConfig.Channel = ADC_CHANNEL_2;
+//  sConfig.Rank = ADC_REGULAR_RANK_1;
+//  sConfig.SamplingTime = ADC_SAMPLINGTIME_COMMON_1;
+//  if (HAL_ADC_ConfigChannel(&hadc, &sConfig) != HAL_OK)
+//  {
+//    Error_Handler();
+//  }
   /* USER CODE BEGIN ADC_Init 2 */
 
   /* USER CODE END ADC_Init 2 */
@@ -421,8 +460,8 @@ void MX_GPIO_Init(void)
 {
 
   /* GPIO Ports Clock Enable */
-  __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
+  __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOC_CLK_ENABLE();
 
 }
