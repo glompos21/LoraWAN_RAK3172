@@ -367,10 +367,12 @@ static void SendTxData(void)
 {
   UTIL_TIMER_Time_t nextTxIn = 0;
 
-	__IO uint16_t adc_vref = 0U;;
-	__IO uint16_t adc_vref_mVolt = 0U;;
-	__IO uint16_t adc_int2 = 0U;;
-	__IO uint16_t adc_int2_mVolt = 0U;;
+	__IO uint16_t adc_vref = 0U;
+	__IO uint16_t adc_vref_mVolt = 0U;
+	__IO uint16_t adc_int2 = 0U;
+	__IO uint16_t adc_int2_mVolt = 0U;
+	__IO uint16_t adc_int3 = 0U;
+	__IO uint16_t adc_int3_mVolt = 0U;
 	__IO  int16_t Temperature_DegreeCelsius = 0U; /* Value of temperature calculated from ADC conversion data (unit: degree Celsius) */
 
   // Start humidity measurement
@@ -398,6 +400,13 @@ static void SendTxData(void)
   adc_int2_mVolt= __LL_ADC_CALC_DATA_TO_VOLTAGE(adc_vref_mVolt,adc_int2, LL_ADC_RESOLUTION_12B);
   APP_LOG(TS_ON, VLEVEL_L, "adc_int2 = %d\n\r", adc_int2);
   APP_LOG(TS_ON, VLEVEL_L, "adc_int2_mVolt = %d\n\r", adc_int2_mVolt);
+
+  adc_int3 = ADC_ReadChannels(ADC_CHANNEL_3);
+  adc_int3_mVolt= __LL_ADC_CALC_DATA_TO_VOLTAGE(adc_vref_mVolt,adc_int3, LL_ADC_RESOLUTION_12B);
+  APP_LOG(TS_ON, VLEVEL_L, "adc_int3 = %d\n\r", adc_int3);
+  APP_LOG(TS_ON, VLEVEL_L, "adc_int3_mVolt = %d\n\r", adc_int3_mVolt);
+
+
   Temperature_DegreeCelsius= __LL_ADC_CALC_TEMPERATURE(adc_vref,ADC_ReadChannels(ADC_CHANNEL_TEMPSENSOR), LL_ADC_RESOLUTION_12B);
   /* from int16 to q8.7*/
   Temperature_DegreeCelsius <<= 8;
@@ -416,10 +425,12 @@ static void SendTxData(void)
   app_data_buffer[i++] = (uint8_t)tempC;//2
   app_data_buffer[i++] = (uint8_t)(humidity1 >> 8);//3
   app_data_buffer[i++] = (uint8_t)humidity1;//4
-  app_data_buffer[i++] = (uint8_t)((adc_vref_mVolt & 0x00FF0000) >> 16);//5  can send  up to 65535
-  app_data_buffer[i++] = (uint8_t)((adc_vref_mVolt & 0x0000FF00) >> 8);//6
-  app_data_buffer[i++] = (uint8_t)(adc_vref_mVolt & 0x000000FF);//7
-
+  app_data_buffer[i++] = (uint8_t)((adc_int2_mVolt & 0x00FF0000) >> 16);//5  can send  up to 65535
+  app_data_buffer[i++] = (uint8_t)((adc_int2_mVolt & 0x0000FF00) >> 8);//6
+  app_data_buffer[i++] = (uint8_t)(adc_int2_mVolt & 0x000000FF);//7
+  app_data_buffer[i++] = (uint8_t)((adc_int3_mVolt & 0x00FF0000) >> 16);//8  can send  up to 65535
+  app_data_buffer[i++] = (uint8_t)((adc_int3_mVolt & 0x0000FF00) >> 8);//9
+  app_data_buffer[i++] = (uint8_t)(adc_int3_mVolt & 0x000000FF);//10
 
 
 
