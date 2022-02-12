@@ -143,8 +143,8 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-//    MX_LoRaWAN_Process();
-	  testADC();
+    MX_LoRaWAN_Process();
+//	  testADC();
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
