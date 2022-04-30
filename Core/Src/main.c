@@ -80,19 +80,20 @@ void testADC(void){
 	  adc_vref_mVolt=__LL_ADC_CALC_VREFANALOG_VOLTAGE(adc_vref, LL_ADC_RESOLUTION_12B);
 //	  APP_LOG(TS_ON, VLEVEL_L, "adc_vref = %d\n\r", adc_vref);
 //	  APP_LOG(TS_ON, VLEVEL_L, "adc_vref_mVolt = %d\n\r", adc_vref_mVolt);
-	  HAL_Delay(50);
+	  HAL_Delay(200);
 
 	  adc_int2 = ADC_ReadChannels(ADC_CHANNEL_2);
-	  adc_int2_mVolt= __LL_ADC_CALC_DATA_TO_VOLTAGE(adc_vref_mVolt,adc_int2, LL_ADC_RESOLUTION_12B);
+	    adc_int2_mVolt= __LL_ADC_CALC_DATA_TO_VOLTAGE(adc_vref_mVolt,adc_int2, LL_ADC_RESOLUTION_12B);
 //	  APP_LOG(TS_ON, VLEVEL_L, "adc_int2 = %d\n\r", adc_int2);
 //	  APP_LOG(TS_ON, VLEVEL_L, "adc_int2_mVolt = %d\n\r", adc_int2_mVolt);
-	  HAL_Delay(50);
+	  HAL_Delay(200);
+
 	  adc_int3 = ADC_ReadChannels(ADC_CHANNEL_3);
-	  adc_int3_mVolt = __LL_ADC_CALC_DATA_TO_VOLTAGE(adc_vref_mVolt,adc_int3, LL_ADC_RESOLUTION_12B);
+	  adc_int3_mVolt= __LL_ADC_CALC_DATA_TO_VOLTAGE(adc_vref_mVolt,adc_int3, LL_ADC_RESOLUTION_12B);
 //	  APP_LOG(TS_ON, VLEVEL_L, "adc_int3 = %d\n\r", adc_int3);
 //	   APP_LOG(TS_ON, VLEVEL_L, "adc_int3_mVolt = %d\n\r", adc_int3_mVolt);
 	  APP_LOG(TS_ON, VLEVEL_L, "%d,%d,%d,%d,%d,%d \n\r",adc_vref,adc_vref_mVolt,adc_int2,adc_int2_mVolt,adc_int3, adc_int3_mVolt);
-	  HAL_Delay(1000);
+	  HAL_Delay(200);
 
 }
 /* USER CODE END 0 */
@@ -143,8 +144,8 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-    MX_LoRaWAN_Process();
-//	  testADC();
+//    MX_LoRaWAN_Process();
+	  testADC();
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
