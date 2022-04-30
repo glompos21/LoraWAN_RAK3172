@@ -394,12 +394,13 @@ static void SendTxData(void)
   adc_vref_mVolt=__LL_ADC_CALC_VREFANALOG_VOLTAGE(adc_vref, LL_ADC_RESOLUTION_12B);
   APP_LOG(TS_ON, VLEVEL_L, "adc_vref = %d\n\r", adc_vref);
   APP_LOG(TS_ON, VLEVEL_L, "adc_vref_mVolt = %d\n\r", adc_vref_mVolt);
-  HAL_Delay(50);
+  HAL_Delay(200);
 
   adc_int2 = ADC_ReadChannels(ADC_CHANNEL_2);
   adc_int2_mVolt= __LL_ADC_CALC_DATA_TO_VOLTAGE(adc_vref_mVolt,adc_int2, LL_ADC_RESOLUTION_12B);
   APP_LOG(TS_ON, VLEVEL_L, "adc_int2 = %d\n\r", adc_int2);
   APP_LOG(TS_ON, VLEVEL_L, "adc_int2_mVolt = %d\n\r", adc_int2_mVolt);
+  HAL_Delay(200);
 
   adc_int3 = ADC_ReadChannels(ADC_CHANNEL_3);
   adc_int3_mVolt= __LL_ADC_CALC_DATA_TO_VOLTAGE(adc_vref_mVolt,adc_int3, LL_ADC_RESOLUTION_12B);
@@ -407,11 +408,11 @@ static void SendTxData(void)
   APP_LOG(TS_ON, VLEVEL_L, "adc_int3_mVolt = %d\n\r", adc_int3_mVolt);
 
 
-  Temperature_DegreeCelsius= __LL_ADC_CALC_TEMPERATURE(adc_vref,ADC_ReadChannels(ADC_CHANNEL_TEMPSENSOR), LL_ADC_RESOLUTION_12B);
-  /* from int16 to q8.7*/
-  Temperature_DegreeCelsius <<= 8;
-  Temperature_DegreeCelsius=(Temperature_DegreeCelsius/100U);
-  APP_LOG(TS_ON, VLEVEL_L, "Temperature = %d\n\r", Temperature_DegreeCelsius);
+//  Temperature_DegreeCelsius= __LL_ADC_CALC_TEMPERATURE(adc_vref,ADC_ReadChannels(ADC_CHANNEL_TEMPSENSOR), LL_ADC_RESOLUTION_12B);
+//  /* from int16 to q8.7*/
+//  Temperature_DegreeCelsius <<= 8;
+//  Temperature_DegreeCelsius=(Temperature_DegreeCelsius/100U);
+//  APP_LOG(TS_ON, VLEVEL_L, "Temperature = %d\n\r", Temperature_DegreeCelsius);
 
   // building
 //  uint8_t channel = 0;
